@@ -1,0 +1,14 @@
+services:
+  postgres:
+    container_name: forum-fastify-pg
+    image: postgres
+    ports:
+      - 5432:5432
+    # restart: always
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: fastify_forum
+      PGDATA: /data/postgres
+    # volumes:
+    #   - ./data/pg:/data/postgres
