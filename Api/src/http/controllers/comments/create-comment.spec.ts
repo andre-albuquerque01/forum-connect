@@ -1,0 +1,33 @@
+import { app } from "@/app"
+import { afterAll, beforeAll, describe, expect, it } from "vitest"
+import request from 'supertest'
+import { prisma } from "@/lib/prisma"
+import { MakeUserFactory } from "@/test/factories/make-user-factory"
+import { MakePostFactory } from "@/test/factories/make-post-factory"
+import { makeAuthenticateUserFactory } from "@/test/factories/make-authenticate-user-factory"
+
+describe('Create Post (E2E)', () => {
+    beforeAll(async () => {
+        await app.ready()
+    })
+
+    afterAll(async () => {
+        await app.close()
+    })
+
+    it('should be able to create Post', async () => {
+        const user = await MakeUserFactory.create({})
+        const post = await MakePostFactory.create({ authorId: user.id })
+        const { token } = await makeAuthenticateUserFactory(app)
+
+        const response = await request(app.server)
+            .post(`/createComment`)
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                postId: post.id,
+                content: 'johndoe@example.com',
+            })
+
+        expect(response.status).toBe(204)
+    })
+})
