@@ -4,18 +4,18 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
 export async function findByIdPost(request: FastifyRequest, reply: FastifyReply) {
-    const findbyidpostBody = z.object({
+    const findByIdPostBody = z.object({
         id: z.string().uuid(),
     })
 
-    const { id } = findbyidpostBody.parse(request.params)
+    const { id } = findByIdPostBody.parse(request.params)
 
     try {
-        const findbyidpostService = makeFindByIdPostService()
+        const findByIdPostService = makeFindByIdPostService()
 
-        const post = await findbyidpostService.execute({ id })
+        const { post } = await findByIdPostService.execute({ id })
 
-        return reply.status(200).send({ post })
+        return reply.status(200).send(post)
     } catch (error) {
         return reply.status(400).send({ message: error })
     }
