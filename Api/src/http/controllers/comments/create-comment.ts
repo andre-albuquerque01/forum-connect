@@ -15,9 +15,8 @@ export async function createComment(request: FastifyRequest, reply: FastifyReply
 
         await createcommentService.execute({ postId, content, authorId: request.user.sub })
 
+        return reply.status(204).send()
     } catch (error) {
         return reply.status(400).send({ message: error })
     }
-
-    return reply.status(204).send()
 }
