@@ -5,21 +5,21 @@ import { z } from "zod";
 export async function updatePost(request: FastifyRequest, reply: FastifyReply) {
     const updatepostBody = z.object({
         id: z.string().uuid(),
-        title: z.string().min(3).max(40),
-        content: z.string().min(3).max(255),
+        title: z.string().min(3).max(100),
+        content: z.string().max(255),
     })
 
-    const { id } = updatepostBody.parse(request.params)
-    const { title, content } = updatepostBody.parse(request.body)
+    const { id, title, content } = updatepostBody.parse(request.body)
 
     try {
         const updatepostService = makeUpdatePostService()
 
         await updatepostService.execute({ id, title, content, authorId: request.user.sub })
 
+        return reply.status(204).send()
     } catch (error) {
-        return reply.status(400).send({ message: error })
+        return reply.status(400).send({
+            error: error instanceof Error ? error.message : "Erro desconhecido.",
+        });
     }
-
-    return reply.status(204).send()
 }
