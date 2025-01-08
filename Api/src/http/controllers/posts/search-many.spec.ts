@@ -18,7 +18,7 @@ describe('Search Query Post (E2E)', () => {
         const post = await MakePostFactory.create({ authorId: user.id })
 
         const response = await request(app.server)
-            .get(`/updatePost/q=${post.title}&page=1`)
+            .get(`/posts/search/${post.title}/1`)
             .send()
 
         expect(response.status).toBe(200)
