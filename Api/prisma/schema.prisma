@@ -18,7 +18,8 @@ model User {
   name            String
   email           String            @unique
   password        String
-  nickname        String            @unique
+  nickname        String
+  termService     Boolean
   Post            Post[]
   Comment         Comment[]
   PasswordRecover PasswordRecover[]
