@@ -20,6 +20,7 @@ export class InMemoryUserRepository implements UsersRepository {
             nickname: data.nickname,
             email: data.email,
             password: data.password,
+            termService: data.termService,
             created_at: new Date(),
         }
 
