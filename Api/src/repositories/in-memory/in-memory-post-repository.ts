@@ -17,6 +17,7 @@ export class InMemoryPostRepository implements PostsRepository {
             .slice((page - 1) * 20, page * 20)
     }
 
+
     async searchMany(query: string, { page }: PaginationParams) {
         return this.items
             .filter((item) => item.title.includes(query))
