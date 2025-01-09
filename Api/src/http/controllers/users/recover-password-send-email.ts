@@ -15,7 +15,9 @@ export async function recoverPassworSendEmail(request: FastifyRequest, reply: Fa
         await recoverPassworSendEmailService.execute({ email })
 
     } catch (error) {
-        return reply.status(400).send({ message: error })
+        return reply.status(400).send({
+            error: error instanceof Error ? error.message : "Erro desconhecido.",
+        });
     }
 
     return reply.status(200).send()
