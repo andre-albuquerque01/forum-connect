@@ -1,4 +1,4 @@
-import { Post, Prisma, PrismaClient } from "@prisma/client";
+import { Post, Prisma } from "@prisma/client";
 import { PostsRepository } from "../post-repository";
 import { prisma } from "@/lib/prisma";
 import { PaginationParams } from "@/utils/paginationParams";
@@ -9,6 +9,28 @@ export class PrismaPostRepository implements PostsRepository {
             where: {
                 id
             },
+        })
+
+        if (!post) return null
+        return post
+    }
+
+    async findByUserPost(id: string): Promise<
+        Prisma.PostGetPayload<{
+            include: {
+                author: true;
+                Comment: {
+                    include: {
+                        author: true;
+                    };
+                };
+            };
+        }>[]
+    > {
+        const post = await prisma.post.findMany({
+            where: {
+                authorId: id
+            },
             include: {
                 author: true,
                 Comment: {
@@ -17,9 +39,11 @@ export class PrismaPostRepository implements PostsRepository {
                     },
                 },
             },
+            orderBy: {
+                createdAt: "desc",
+            },
         })
 
-        if (!post) return null
         return post
     }
 
