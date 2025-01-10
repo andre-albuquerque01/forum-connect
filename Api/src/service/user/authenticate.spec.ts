@@ -21,7 +21,8 @@ describe('Authenticate service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         const { user } = await sut.execute({
@@ -39,7 +40,8 @@ describe('Authenticate service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         await expect(() => sut.execute({
@@ -54,7 +56,8 @@ describe('Authenticate service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         await expect(() => sut.execute({
