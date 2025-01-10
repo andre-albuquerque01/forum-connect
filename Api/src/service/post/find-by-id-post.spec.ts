@@ -14,12 +14,13 @@ describe('Update service post', () => {
         sut = new FindByIdPostService(postRepository)
     })
 
-    it("should be able update post", async () => {
+    it("should be able get post", async () => {
         const user = await userRepository.create({
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true
         })
 
         const postCreate = await postRepository.create({
@@ -40,7 +41,8 @@ describe('Update service post', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true
         })
 
         await postRepository.create({
