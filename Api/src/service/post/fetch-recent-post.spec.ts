@@ -19,7 +19,8 @@ describe('Fetch recent post service', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true
         })
 
         await Promise.all([
