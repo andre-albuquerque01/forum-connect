@@ -19,7 +19,8 @@ describe('Recover password send email service', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         const { token } = await sut.execute({
