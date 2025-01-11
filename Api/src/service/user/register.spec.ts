@@ -18,7 +18,8 @@ describe('Register service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe', 
+            termService: true,
         })
 
         expect(user.id).toEqual(expect.any(String))
@@ -30,7 +31,8 @@ describe('Register service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         const isPasswordCorrectly = await compare('password123', user.password)
@@ -44,7 +46,8 @@ describe('Register service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         await expect(() => sut.execute({
@@ -52,7 +55,8 @@ describe('Register service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })).rejects.toBeInstanceOf(Error)
     })
 
@@ -62,7 +66,8 @@ describe('Register service user', () => {
             email: 'johndoe@example.com',
             password: 'password123',
             passwordConfirmation: 'password12',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })).rejects.toBeInstanceOf(Error)
     })
 })
