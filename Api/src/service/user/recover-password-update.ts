@@ -35,7 +35,7 @@ export class RecoverPasswordUpdate {
             throw new Error("Usuário não encontrado")
         }
 
-        if (password!== passwordConfirmation) {
+        if (password !== passwordConfirmation) {
             throw new Error("Senhas não conferem")
         }
 
