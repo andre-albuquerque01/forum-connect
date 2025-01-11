@@ -27,6 +27,12 @@ export class RecoverPasswordSendEmail {
             throw new Error("User not found")
         }
 
+        const existingToken = await this.recoverPasswordRepository.findByUserId(user.id)
+
+        if (existingToken) {
+            await this.recoverPasswordRepository.delete(existingToken)
+        }
+
         const token = await hash(randomUUID(), 3)
 
         await SendEmail({ email: user.email, token })
