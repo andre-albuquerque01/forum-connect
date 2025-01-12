@@ -59,7 +59,7 @@ export function RecoverPasswordHtml(token: string): string {
 
         <p>Seu token para recuperação de senha é:</p>
 
-        <a href="http://localhost:3000/recover-password/update-password/${token}">Recuperar Senha</a>
+        <a href="http://localhost:3000/user/recover-password/update-password/${token}">Recuperar Senha</a>
 
         <p>Este link de recuperação é válido por 15 minutos. Após este período, será
             necessário solicitar uma nova recuperação de senha.</p>
@@ -83,7 +83,7 @@ export function RecoverPasswordText(token: string): string {
             Token para recuperação de senha: ${token}
 
             Você pode acessar o link a seguir para iniciar o processo:
-            http://localhost:3000/recover-password/update-password/${token}
+            http://localhost:3000/user/recover-password/update-password/${token}
 
             Este link de recuperação é válido por 15 minutos. Após este período, será necessário solicitar uma nova recuperação de senha.
 
