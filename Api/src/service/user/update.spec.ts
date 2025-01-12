@@ -16,7 +16,8 @@ describe('Update service user', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         const { user } = await sut.execute({
@@ -35,14 +36,16 @@ describe('Update service user', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         const data = await userRepository.create({
             name: 'John Doe',
             email: 'johndoe@gmail.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true,
         })
 
         await expect(() => sut.execute({
