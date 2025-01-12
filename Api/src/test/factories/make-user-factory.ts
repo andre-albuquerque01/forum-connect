@@ -17,6 +17,7 @@ export class MakeUserFactory {
                 email: email || `johndoe${randomInt(5)}@example.com`,
                 password: await hash(password ? password : '123456', 6),
                 nickname: nickname || `john_doe_${randomInt(5)}`,
+                termService: true,
             },
         })
         return data
