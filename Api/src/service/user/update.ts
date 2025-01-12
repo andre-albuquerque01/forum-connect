@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { UsersRepository } from "@/repositories/user-repository";
-import { hash } from "bcryptjs"
+import { compare } from "bcryptjs"
 
 interface UpdateUserRequest {
     id: string;
@@ -21,17 +21,25 @@ export class UpdateService {
         const userWithSameEmail = await this.userRepository.findByEmail(email)
 
         if (userWithSameEmail && userWithSameEmail.id !== id) {
-            throw new Error('Email already in use');
+            throw new Error("Email already in use");
         }
 
-        const password_hash = await hash(password, 6)
+        const checkUser = await this.userRepository.findById(id);
 
+        if (!checkUser) {
+            throw new Error("Usuário não encontrado");
+        }
+
+        const passwordIsCorrect = await compare(password, checkUser.password);
+        if (!passwordIsCorrect) {
+            throw new Error("Senha incorreta");
+        }
+        
         const user = await this.userRepository.save({
             id,
             email,
             name,
             nickname,
-            password: password_hash
         })
 
         return { user }
