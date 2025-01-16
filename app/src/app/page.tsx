@@ -22,12 +22,12 @@ export default function Home() {
         </div>
         <div className="mt-6 flex gap-4">
           <Link href="/threads/new">
-            <p className="text-blue-500 hover:text-blue-400 cursor-pointer">
+            <p className="text-indigo-800 hover:text-indigo-600 cursor-pointer">
               Start a new thread
             </p>
           </Link>
           <Link href="/threads">
-            <p className="text-blue-500 hover:text-blue-400 cursor-pointer">
+            <p className="text-indigo-800 hover:text-indigo-600 cursor-pointer">
               Browse threads
             </p>
           </Link>
