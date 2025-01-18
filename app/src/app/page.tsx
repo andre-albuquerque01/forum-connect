@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="bg-forum-gradient-2 w-full h-screen flex items-center justify-center">
+    <main className="bg-forum-gradient-2 w-full h-[calc(100vh-64px)] flex items-center justify-center p-2">
       <div className="max-w-[1200px] flex flex-col justify-center items-center text-center">
         <h1 className="text-5xl font-bold text-white mb-6">Welcome to the Forum!</h1>
         <p className="text-xl text-white mb-4">
@@ -33,6 +33,6 @@ export default function Home() {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
