@@ -6,6 +6,7 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { ThreadInterface } from "./threads/(home)/page";
 
 
 // User
@@ -87,7 +88,7 @@ export async function UpdateUser(request: object) {
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
 
     try {
         const response = await ApiServer("update", {
@@ -142,7 +143,7 @@ export async function ProfileUser() {
         const data = await response.json()
 
         if (!data) return {}
-        
+
         return data
     } catch (error) {
         return ApiError(error)
@@ -296,7 +297,12 @@ export async function logout() {
 
 
 // Threads
-export async function FetchRecentThreads(page: number) {
+interface FetchThreadsResponse {
+    data: ThreadInterface[];
+    totalPages: number;
+}
+
+export async function FetchRecentThreads(page: number): Promise<FetchThreadsResponse> {
     try {
         const response = await ApiServer(`posts/${page}`, {
             method: 'GET',
@@ -310,19 +316,17 @@ export async function FetchRecentThreads(page: number) {
             }
         })
 
-        const data: [] = await response.json()
+        const data = await response.json()
 
-        if (data === null) return []
-
-        if (data.length <= 20) return data
-
-        return data
+        if (data === null) return { data: [], totalPages: 0 };
+        return { data: data.posts, totalPages: data.totalPages }
     } catch (error) {
-        return ApiError(error)
+        console.error(error);
+        return { data: [], totalPages: 0 };
     }
 }
 
-export async function FetchSearchThreads(query: string, page: number) {
+export async function FetchSearchThreads(query: string, page: number): Promise<FetchThreadsResponse> {
     try {
         const response = await ApiServer(`posts/search/${query}/${page}`, {
             method: 'GET',
@@ -335,16 +339,14 @@ export async function FetchSearchThreads(query: string, page: number) {
                 tags: ['threads'],
             }
         })
+        const data = await response.json()
 
-        const data: [] = await response.json()
+        if (data === null) return { data: [], totalPages: 0 };
+        return { data: data.posts, totalPages: data.totalPages }
 
-        if (data === null) return []
-
-        if (data.length <= 20) return data
-
-        return data
     } catch (error) {
-        return ApiError(error)
+        console.error(error);
+        return { data: [], totalPages: 0 };
     }
 }
 
@@ -352,7 +354,7 @@ export async function GetUserByThreads() {
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
     try {
         const response = await ApiServer(`find-user-post`, {
             method: 'GET',
@@ -389,11 +391,8 @@ export async function SearchUserByThreads(id: string) {
                 tags: ['threads'],
             }
         })
-
-        const data: [] = await response.json()
-
-        if (data === null) return []
-
+        const data = await response.json()
+        
         return data
     } catch (error) {
         return ApiError(error)
@@ -404,7 +403,7 @@ export async function DeleteThread(id: string) {
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
 
     try {
         const response = await ApiServer(`deletePost/${id}`, {
@@ -450,7 +449,7 @@ export async function CreateThread(state: { ok: boolean; data: null; error: stri
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
 
     try {
         const response = await ApiServer("createPost", {
@@ -489,7 +488,7 @@ export async function UpdateThread(request: object) {
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
 
     try {
         const response = await ApiServer(`updatePost/${result.data.id}`, {
@@ -525,7 +524,7 @@ export async function GetByIdThread(id: string) {
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
 
     try {
         const response = await ApiServer(`findByIdPost/${id}`, {
@@ -567,7 +566,7 @@ export async function CreateComment(state: { ok: boolean; data: null; error: str
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
 
     try {
         const response = await ApiServer("createComment", {
@@ -601,7 +600,7 @@ export async function DeleteComment(id: string) {
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
-    if(!token) redirect('/user/login')
+    if (!token) redirect('/user/login')
 
     try {
         const response = await ApiServer(`deleteComment/${id}`, {
