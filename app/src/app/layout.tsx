@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "@/components/header/navBar";
+import { Header } from "@/components/nav/header";
 
 export const metadata: Metadata = {
   title: "Node Forum",
@@ -17,10 +17,8 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        <div className="flex-grow">
-          <Header />
-          {children}
-        </div>
+        <Header />
+        {children}
       </body>
     </html>
   );
