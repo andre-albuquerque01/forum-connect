@@ -5,8 +5,7 @@ export default function ThreadsLayout({
 }>) {
   return (
     <div suppressHydrationWarning>
-      
-          {children}
+      {children}
     </div>
   );
 }
