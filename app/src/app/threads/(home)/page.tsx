@@ -1,6 +1,7 @@
 import { FetchRecentThreads, FetchSearchThreads, ProfileUser } from "@/app/action";
-import { DropdownMenuComment } from "@/components/header/dropdownMenuComment";
-import { DropdownMenuThreads } from "@/components/header/dropdownMenuThreads";
+import { DropdownMenuComment } from "@/components/nav/dropdownMenuComment";
+import { DropdownMenuThreads } from "@/components/nav/dropdownMenuThreads";
+import LinkPagination from "@/components/nav/pagination";
 import { CreateCommentComponent } from "@/components/thread/createComment";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -27,18 +28,27 @@ export interface ThreadInterface {
 
 interface SearchParamsProps {
   searchParams: {
-    page: number;
-    query: string;
+    page?: number;
+    query?: string;
   };
 }
 
-export default async function Home({ searchParams }: SearchParamsProps) {
+export default async function ThreadsList({ searchParams }: SearchParamsProps) {
   const { page = 1, query } = await searchParams;
 
-  let questions = [];
+  let questions: ThreadInterface[] = [];
+  let countPage = 0;
 
-  if (query) questions = (await FetchSearchThreads(query, page)) as ThreadInterface[];
-  else questions = (await FetchRecentThreads(page)) as ThreadInterface[];
+  if (query) {
+    const data = await FetchSearchThreads(query, page)
+    questions = data.data
+    countPage = data.totalPages
+  }
+  else {
+    const data = await FetchRecentThreads(page)
+    questions = data.data
+    countPage = data.totalPages
+  }
 
   const cookistore = await cookies()
   const token = cookistore.get('token')?.value
@@ -46,7 +56,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   const user = await ProfileUser()
 
   return (
-    <div className="bg-forum-gradient-2 w-full min-h-screen flex flex-col items-center py-10">
+    <div className="bg-forum-gradient-2 w-full min-h-[calc(100vh-64px)] flex flex-col items-center py-5">
       {token && (
         <div className="mt-6">
           <Link href="/threads/new">
@@ -103,7 +113,12 @@ export default async function Home({ searchParams }: SearchParamsProps) {
                           </div>
                         )}
                         <p>
-                          <strong>{comment.author?.nickname || "Anonymous"}:</strong>{" "}
+                          <Link
+                            href={`/threads/profile/${comment.author.id}`}
+                            className="text-sm font-semibold text-gray-800 mb-2"
+                          >
+                            {comment.author?.nickname || "Anonymous"}: {' '}
+                          </Link>
                           {comment.content}
                         </p>
                       </li>
@@ -114,6 +129,11 @@ export default async function Home({ searchParams }: SearchParamsProps) {
             </div>
           ))}
       </div>
+      {query ?
+        <LinkPagination countPage={countPage} page={page} query={query} />
+        :
+        <LinkPagination countPage={countPage} page={page} />
+      }
     </div>
   );
 }
