@@ -41,4 +41,11 @@ export class PostMapper {
     static toDomainList(rawList: PostWithRelations[]) {
         return rawList.map(post => PostMapper.toDomain(post));
     }
+
+    static toDomainWithPagination(raw: { posts: PostWithRelations[]; totalPages: number }) {
+        return {
+            posts: PostMapper.toDomainList(raw.posts),
+            totalPages: raw.totalPages,
+        };
+    }
 }
