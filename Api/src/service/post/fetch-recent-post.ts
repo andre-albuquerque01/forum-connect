@@ -4,18 +4,20 @@ import { Prisma } from "@prisma/client";
 interface FetchRecentPostRequest {
     page: number;
 }
-
 interface FetchRecentPostReply {
-    post: Prisma.PostGetPayload<{
-        include: {
-            author: true;
-            Comment: {
-                include: {
-                    author: true;
+    post: {
+        posts: Prisma.PostGetPayload<{
+            include: {
+                author: true;
+                Comment: {
+                    include: {
+                        author: true;
+                    };
                 };
             };
-        };
-    }>[];
+        }>[]; 
+        totalPages: number;
+    };
 }
 
 export class FetchRecentPostService {
