@@ -16,7 +16,7 @@ export async function fetchRecentPost(request: FastifyRequest, reply: FastifyRep
 
         const { post } = await fetchRecentPostService.execute({ page })
 
-        return reply.status(200).send(PostMapper.toDomainList(post))
+        return reply.status(200).send(PostMapper.toDomainWithPagination(post))
     } catch (error) {
         return reply.status(400).send({ message: error })
     }
