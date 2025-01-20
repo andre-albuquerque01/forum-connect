@@ -7,7 +7,8 @@ interface SearchManyPostRequest {
 }
 
 interface SearchManyPostReply {
-    post: Prisma.PostGetPayload<{
+    post: {
+        posts: Prisma.PostGetPayload<{
             include: {
                 author: true;
                 Comment: {
@@ -16,7 +17,9 @@ interface SearchManyPostReply {
                     };
                 };
             };
-        }>[];
+        }>[]; 
+        totalPages: number;
+    };
 }
 
 export class SearchManyPostService {
