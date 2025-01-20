@@ -17,7 +17,7 @@ export async function searchManyPost(request: FastifyRequest, reply: FastifyRepl
 
         const { post } = await searchManyPostService.execute({ query: q, page })
 
-        return reply.status(200).send(PostMapper.toDomainList(post))
+        return reply.status(200).send(PostMapper.toDomainWithPagination(post))
     } catch (error) {
         return reply.status(400).send({ message: error })
     }
