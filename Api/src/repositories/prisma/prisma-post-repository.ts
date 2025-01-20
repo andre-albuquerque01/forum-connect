@@ -47,8 +47,8 @@ export class PrismaPostRepository implements PostsRepository {
         return post
     }
 
-    async searchMany(query: string, { page }: PaginationParams): Promise<
-        Prisma.PostGetPayload<{
+    async searchMany(query: string, { page }: PaginationParams): Promise<{
+        posts: Prisma.PostGetPayload<{
             include: {
                 author: true;
                 Comment: {
@@ -57,8 +57,19 @@ export class PrismaPostRepository implements PostsRepository {
                     };
                 };
             };
-        }>[]
-    > {
+        }>[];
+        totalPages: number;
+    }> {
+        const itemsPerPage = 20;
+        const totalCount = await prisma.post.count({
+            where: {
+                OR: [
+                    { title: { contains: query } },
+                    { content: { contains: query } }
+                ]
+            },
+        });
+        const totalPages = Math.ceil(totalCount / itemsPerPage);
         const posts = await prisma.post.findMany({
             where: {
                 OR: [
@@ -74,18 +85,18 @@ export class PrismaPostRepository implements PostsRepository {
                     },
                 },
             },
-            take: 20,
-            skip: (page - 1) * 20,
+            take: itemsPerPage,
+            skip: (page - 1) * itemsPerPage,
             orderBy: {
                 createdAt: "desc",
             },
         })
 
-        return posts
+        return { posts, totalPages };
     }
 
-    async findManyRecent({ page }: PaginationParams): Promise<
-        Prisma.PostGetPayload<{
+    async findManyRecent({ page }: PaginationParams): Promise<{
+        posts: Prisma.PostGetPayload<{
             include: {
                 author: true;
                 Comment: {
@@ -94,11 +105,15 @@ export class PrismaPostRepository implements PostsRepository {
                     };
                 };
             };
-        }>[]
-    > {
-        const post = await prisma.post.findMany({
-            take: 20,
-            skip: (page - 1) * 20,
+        }>[];
+        totalPages: number;
+    }> {
+        const itemsPerPage = 20;
+        const totalCount = await prisma.post.count();
+        const totalPages = Math.ceil(totalCount / itemsPerPage);
+        const posts = await prisma.post.findMany({
+            take: itemsPerPage,
+            skip: (page - 1) * itemsPerPage,
             orderBy: {
                 createdAt: "desc",
             },
@@ -112,8 +127,9 @@ export class PrismaPostRepository implements PostsRepository {
             },
         });
 
-        return post;
+        return { posts, totalPages };
     }
+
 
     async create(data: Prisma.PostUncheckedCreateInput): Promise<Post> {
         const post = prisma.post.create({
