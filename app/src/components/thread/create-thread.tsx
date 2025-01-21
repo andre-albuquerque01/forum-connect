@@ -1,9 +1,8 @@
 'use client'
 import { CreateThread } from "@/app/action";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
-import { FaArrowLeft } from "react-icons/fa";
+import { GoBack } from "../nav/goBack";
 
 export default function CreateThreadNewComponent() {
   const [state, action, pending] = useActionState(CreateThread, {
@@ -25,9 +24,7 @@ export default function CreateThreadNewComponent() {
       <h1 className="text-4xl font-bold text-white mb-6">New Questions</h1>
       <form action={action} className="flex flex-col gap-6 w-full max-w-2xl px-4">
         <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
-          <Link href="/threads" className="w-96 max-md:w-80 text-sm flex flex-row items-center text-indigo-400 hover:text-blue-600 mb-4">
-            <FaArrowLeft className="w-4 h-4 mr-2 " /> Voltar
-          </Link>
+          <GoBack />
           <input type="text" name="title" placeholder="Título" className="border p-2 rounded-md mb-4" required />
           <textarea name="content" className="text-gray-600 border p-2 rounded-md mb-4" required></textarea>
           <button className="bg-forum-gradient-4 text-white p-2 rounded-md hover:bg-green-500" disabled={pending}>Enviar</button>
