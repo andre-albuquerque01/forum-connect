@@ -7,7 +7,8 @@ export async function middleware(request: NextRequest) {
 
     if (
         (!authentication && (request.nextUrl.pathname.endsWith('user/update') ||
-            request.nextUrl.pathname.startsWith('threads/new/') ||
+            request.nextUrl.pathname.startsWith('threads/new') ||
+            request.nextUrl.pathname.endsWith('threads/new') ||
             request.nextUrl.pathname.startsWith('threads/get/') ||
             request.nextUrl.pathname.endsWith('user')
         ))
