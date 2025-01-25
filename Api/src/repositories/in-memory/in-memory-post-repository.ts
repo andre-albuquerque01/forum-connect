@@ -5,20 +5,23 @@ import { PaginationParams } from "@/utils/paginationParams";
 
 export class InMemoryPostRepository implements PostsRepository {
     public items: Post[] = []
-
+    
     async findById(id: string): Promise<Post | null> {
         const post = this.items.find(item => item.id === id)
         return post ? post : null
     }
+    async findByUserPost(id: string): Promise<any> {
+        const post = this.items.find(item => item.id === id)
+        return post ? post : null
+    }
 
-    async findManyRecent({ page }: PaginationParams): Promise<Post[]> {
+    async findManyRecent({ page }: PaginationParams): Promise<any> {
         return this.items
             .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
             .slice((page - 1) * 20, page * 20)
     }
 
-
-    async searchMany(query: string, { page }: PaginationParams) {
+    async searchMany(query: string, { page }: PaginationParams): Promise<any> {
         return this.items
             .filter((item) => item.title.includes(query))
             .slice((page - 1) * 20, page * 20)
