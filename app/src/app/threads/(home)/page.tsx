@@ -26,15 +26,13 @@ export interface ThreadInterface {
   }[];
 }
 
-interface SearchParamsProps {
-  searchParams: {
-    page?: number;
-    query?: string;
-  };
-}
 
-export default async function ThreadsList({ searchParams }: SearchParamsProps) {
-  const { page = 1, query } = await searchParams;
+type SearchParams = Promise<{ [key: string]: string | undefined }>
+
+export default async function ThreadsList(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams
+  const query = searchParams.query
+  const page = searchParams.page ? Number(searchParams.page) : 1
 
   let questions: ThreadInterface[] = [];
   let countPage = 0;
