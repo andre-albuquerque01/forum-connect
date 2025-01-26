@@ -22,7 +22,8 @@ describe('Update service post', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true
         })
 
         const post = await postRepository.create({
@@ -51,7 +52,8 @@ describe('Update service post', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true
         })
 
         const post = await postRepository.create({
@@ -78,7 +80,8 @@ describe('Update service post', () => {
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: 'password123',
-            nickname: 'john_doe'
+            nickname: 'john_doe',
+            termService: true
         })
 
         const post = await postRepository.create({
