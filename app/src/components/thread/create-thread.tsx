@@ -25,7 +25,7 @@ export default function CreateThreadNewComponent() {
       <form action={action} className="flex flex-col gap-6 w-full max-w-2xl px-4">
         <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
           <GoBack />
-          <input type="text" name="title" placeholder="Título" className="border p-2 rounded-md mb-4" required />
+          <input type="text" name="title" placeholder="Título" className="border p-2 rounded-md mb-4 mt-4" required />
           <textarea name="content" className="text-gray-600 border p-2 rounded-md mb-4" required></textarea>
           <button className="bg-forum-gradient-4 text-white p-2 rounded-md hover:bg-green-500" disabled={pending}>Enviar</button>
           <span className="w-96 max-md:w-80 text-justify flex flex-row items-center text-red-600 text-xs">
