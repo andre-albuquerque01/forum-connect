@@ -34,7 +34,7 @@ export default function UpdateThreadComponent({ id, title, content }: { id: stri
         <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
           <GoBack />
           <input type="hidden" name="id" defaultValue={id} required />
-          <input type="text" name="title" placeholder="Título" className="border p-2 rounded-md mb-4" defaultValue={title ?? ''} required />
+          <input type="text" name="title" placeholder="Título" className="border p-2 rounded-md mb-4 mt-4" defaultValue={title ?? ''} required />
           <textarea name="content" className="text-gray-600 border p-2 rounded-md mb-4" defaultValue={content ?? ''} required></textarea>
           <button className="bg-forum-gradient-4 text-white p-2 rounded-md hover:bg-green-500">Alterar</button>
           <span className="w-96 max-md:w-80 text-justify flex flex-row items-center text-red-600 text-xs">
