@@ -6,10 +6,12 @@ import { DropdownMenuComment } from "@/components/nav/dropdownMenuComment";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
-export default async function Profile({ params }: { params: { id: string } }) {
-  const user = await params
+type Params = Promise<{ id: string }>
+export default async function Profile(props: { params: Params }) {
+  const params = await props.params
+  const id = await params.id;
 
-  const questions = (await SearchUserByThreads(user.id)) as ThreadInterface[];
+  const questions = (await SearchUserByThreads(id)) as ThreadInterface[];
 
   const cookistore = await cookies()
   const token = cookistore.get('token')?.value
