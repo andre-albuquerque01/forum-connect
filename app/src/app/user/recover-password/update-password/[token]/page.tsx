@@ -1,7 +1,9 @@
 import UpdatePasswordComponent from "@/components/user/recover-password/update-password";
 
-export default async function UpdatePassword({ params }: { params: { token: string } }) {
-    const { token } = await params
+type Params = Promise<{ token: string }>
+export default async function UpdatePassword(props: { params: Params }) {
+    const params = await props.params
+    const token  = await params.token
     const urlToken = decodeURIComponent(token);
 
     return (
