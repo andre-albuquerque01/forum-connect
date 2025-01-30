@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-   "build": "tsup src --out-dir build && cp package.json build/",
+    "build": "tsup src --out-dir build",
     "start": "node build/server.js",
     "studio": "npx prisma studio",
     "test": "vitest run --dir src/service",
