@@ -7,3 +7,7 @@ app.listen({
 }).then(() => {
     console.log(`🚀 Server running at`);
 })
+
+app.get("/", (req, res) => {
+    res.send("API rodando na Vercel!");
+  });
