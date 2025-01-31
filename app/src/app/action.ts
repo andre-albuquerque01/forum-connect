@@ -436,7 +436,7 @@ export async function DeleteThread(id: string) {
 
 export async function CreateThread(state: { ok: boolean; data: null; error: string }, request: FormData) {
     const schema = z.object({
-        title: z.string(),
+        title: z.string().min(3, 'O mínimo de caracter é de 3.').max(40, 'O máximo de caracter permitido é 40.'),
         content: z.string().min(3, 'O mínimo de caracter é de 3.').max(255, 'O máximo de caracter permitido é 255.'),
     })
 
@@ -464,7 +464,7 @@ export async function CreateThread(state: { ok: boolean; data: null; error: stri
         revalidateTag('threads')
 
         if (response.status !== 204) {
-            return { ok: false, error: 'Não foi possível registrar o usuário', data: null };
+            return { ok: false, error: 'Não foi possível registrar.', data: null };
         }
         return { ok: true, error: '', data: null }
     } catch (error) {
