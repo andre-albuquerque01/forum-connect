@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fórum 
 
-## Getting Started
+O fórum serve para tirar dúvidas e possibilitar que os usuários interajam uns com os outros.
 
-First, run the development server:
+## Requisitos do Sistema
+
+Para operar o sistema, são necessários os seguintes requisitos mínimos na sua máquina: Node.js e Docker. O Node.js é necessário para executar a API e o front-end, enquanto o Docker é utilizado para virtualizar o banco de dados. Esses componentes garantem a funcionalidade e o desempenho ideais do nosso sistema de forma integrada e eficiente.
+
+## Requisitos Funcionais
+
+- Deve ser possível que o usuário se cadastre;
+- Deve ser possível que o usuário se autentique;
+- Deve ser possível que o usuário obtenha o perfil de um usuário logado;
+- Deve ser possível que o usuário visualize as questões;
+- Deve ser possível que o usuário acesse o seu perfil;
+- Deve ser possível que o usuário acesse o perfil de outros usuários;
+- Deve ser possível que o usuário busque uma questão pelo título ou conteúdo.
+
+## Regras de Negócio
+
+- O usuário não deve se cadastrar com um e-mail duplicado;
+- O usuário não pode criar uma questão sem estar autenticado;
+- O usuário não pode comentar sem estar autenticado;
+
+## Requisitos Não Funcionais
+
+- A senha do usuário precisa estar criptografada;
+- Os dados da aplicação precisam estar persistidos em um banco de dados;
+- O usuário deve ser identificado por um token JWT.
+
+## Arquitetura do Sistema
+
+O sistema utiliza as seguintes tecnologias:
+
+- **Linguagens:** TypeScript
+- **Banco de Dados:** PostgreSQL
+- **Frameworks:** Fastify, Next.js
+- **Arquitetura da API:** RESTful
+- **Outras Tecnologias:** React, Docker
+
+## Como Iniciar o Sistema
+
+### Passo 1: Download dos Arquivos
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/andre-albuquerque01/forum-connect.git
+```
+
+### Passo 2: Configuração do Back-end
+
+Entre na pasta back-end:
+
+```bash
+cd /Api
+```
+
+Inicialize os pacotes do Node:
+
+```js
+npm i
+```
+
+Crie um arquivo `.env` na raiz do seu projeto e configure as variáveis de ambiente conforme necessário.
+
+Inicie o servidor da API:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para desativar o servidor da API:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+ctrl + c
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Passo 3: Configuração do Front-end
 
-## Learn More
+Entre na pasta front-end:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cd /app
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Baixe as dependências do Node.js:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm i
+```
 
-## Deploy on Vercel
+Inicie o servidor do Next.js:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Passo 4: Acesso ao sistema
+
+Abra o navegador e acesse `http://localhost:3000` para utilizar o serviço.
+
+### Imagens do sistema
+
+#### A seguir, apresentamos algumas imagens que demonstram as funcionalidades do sistema:
+
+- Início
+
+<img src="../assets/index.png" alt="Index" />
+
+- Dashboard
+
+<img src="../assets/dashboard.png" alt="Dashboard" />
+
+- Pesquisa do Item
+
+<img src="../assets/search.png" alt="Pesquisa" />
