@@ -51,7 +51,7 @@ export default function CreateAccountComponent() {
                     <input type="password" name="passwordConfirmation" placeholder="Repetir senha" className="border p-2 w-96 rounded-md max-md:w-80" required />
                     <div className="w-96 max-md:w-80 text-sm flex flex-row items-center space-x-1 text-blue-400 hover:text-blue-600 underline">
                         <input type="checkbox" name="termService" className="p-2 rounded-md mr-1" required />
-                        <Link href="" >
+                        <Link href="/user/term" >
                             Termos de serviços e politicas de privacidade
                         </Link>
                     </div>
